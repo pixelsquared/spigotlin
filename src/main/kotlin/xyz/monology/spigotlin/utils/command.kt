@@ -13,7 +13,7 @@ inline fun <reified T> args(args: Array<String>, index: Int, sender: CommandSend
 }
 
 fun Command<Arguments.None, CommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this) { sender, _ ->
         this.execute(CommandContext(sender, Arguments.None))
     }
 
@@ -183,7 +183,7 @@ inline fun <reified A, reified B, reified C, reified D, reified E, reified F, re
 
 @JvmName("playerToKotlinCommand")
 fun Command<Arguments.None, Player>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this) { sender, _ ->
         if (sender !is Player) {
             CommandIntrinsics.requiresPlayer(sender)
             return@KotlinCommand
@@ -399,7 +399,7 @@ inline fun <reified A, reified B, reified C, reified D, reified E, reified F, re
 
 @JvmName("consoleToKotlinCommand")
 fun Command<Arguments.None, ConsoleCommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this) { sender, _ ->
         if (sender !is ConsoleCommandSender) {
             CommandIntrinsics.requiresConsole(sender)
             return@KotlinCommand

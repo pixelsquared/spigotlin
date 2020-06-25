@@ -4,6 +4,7 @@ import org.bukkit.*
 import org.bukkit.advancement.Advancement
 import org.bukkit.attribute.Attribute
 import org.bukkit.block.data.BlockData
+import org.bukkit.command.CommandSender
 import org.bukkit.conversations.Conversation
 import org.bukkit.conversations.ConversationAbandonedEvent
 import org.bukkit.entity.*
@@ -29,11 +30,11 @@ fun Player.openGui(gui: GUI) = openInventory(gui.spigot)
 
 fun OnlinePlayers.openGui(gui: GUI) = openInventory(gui.spigot)
 
-fun Player.msg(any: Any?) = sendMessage(any.toString())
+fun CommandSender.msg(any: Any?) = sendMessage(any.toString())
 
 fun OnlinePlayers.msg(any: Any?) = sendMessage(any.toString())
 
-fun Player.msg(any: Array<Any?>?) {
+fun CommandSender.msg(any: Array<Any?>?) {
     if (any == null) sendMessage(any.toString()) else any.forEach {
         sendMessage(it.toString())
     }

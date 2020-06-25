@@ -1,9 +1,11 @@
 plugins {
     kotlin("jvm") version "1.3.72"
+    id("com.github.johnrengelman.shadow") version "6.0.0"
+    maven
 }
 
 group = "xyz.monology"
-version = "1.0-SNAPSHOT"
+version = "0.1.0-BETA"
 
 repositories {
     mavenCentral()
