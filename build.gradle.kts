@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "xyz.monology"
-version = "0.1.0-BETA"
+version = "0.1.1-BETA"
 
 repositories {
     mavenCentral()
