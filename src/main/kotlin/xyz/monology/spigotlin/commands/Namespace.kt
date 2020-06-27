@@ -37,6 +37,24 @@ class Namespace(
             return true
         }
 
+        override fun tabComplete(sender: CommandSender, alias: String, args: Array<out String>): List<String> {
+            if (permission != null) {
+                if (!sender.hasPermission(permission)) {
+                    return emptyList()
+                }
+            }
+            if (args.size > 1) {
+                val filter = commands.filter { it.label == args[0] }
+                if (filter.size == 1) {
+                    val slicedArgs = args.slice(1 until args.size)
+                    return filter[0].tabComplete(sender, alias, slicedArgs.toTypedArray())
+                }
+                return emptyList()
+            }
+            val filteredCommands = if (args[0].isBlank()) commands else commands.filter { it.label.startsWith(args[0], true) }
+            return filteredCommands.map { it.label }
+        }
+
         init {
             this.description = description
             usage = "/$name <args>"
