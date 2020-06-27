@@ -43,6 +43,9 @@ class Namespace(
                     return emptyList()
                 }
             }
+            if (args.isNotEmpty()) {
+                return emptyList()
+            }
             return commands.map { it.label }
         }
 
