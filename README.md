@@ -31,4 +31,41 @@ Important note:
 Use this library wisely, it is over 3500 lines of Kotlin. If you're planning to use it in multiple plugins, you should create another library which shades Spigotlin.
 
 ### Maven and Gradle
-Coming soon!
+Kotlin
+```kotlin
+repositories {
+    maven("https://jitpack.io")
+}
+
+dependencies {
+    implementation("com.github.7we:spigotlin:0.1.1-BETA")
+}
+```
+
+Groovy
+```groovy
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation 'com.github.7we:spigotlin:0.1.1-BETA'
+}
+```
+
+Maven
+```xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+<dependencies>
+    <dependency>
+        <groupId>com.github.7we</groupId>
+        <artifactId>spigotlin</artifactId>
+        <version>0.1.1-BETA</version>
+    </dependency>
+</dependencies>
+```
