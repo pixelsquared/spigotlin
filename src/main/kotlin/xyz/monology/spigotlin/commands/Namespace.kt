@@ -37,6 +37,15 @@ class Namespace(
             return true
         }
 
+        override fun tabComplete(sender: CommandSender, alias: String, args: Array<out String>): List<String> {
+            if (permission != null) {
+                if (!sender.hasPermission(permission)) {
+                    return emptyList()
+                }
+            }
+            return commands.map { it.label }
+        }
+
         init {
             this.description = description
             usage = "/$name <args>"
