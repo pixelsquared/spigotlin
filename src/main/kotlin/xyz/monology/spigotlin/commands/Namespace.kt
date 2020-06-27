@@ -46,7 +46,8 @@ class Namespace(
             if (args.size > 1) {
                 return emptyList()
             }
-            return commands.map { it.label }
+            val filteredCommands = if (args[0].isBlank()) commands else commands.filter { it.label.startsWith(args[0], true) }
+            return filteredCommands.map { it.label }
         }
 
         init {
