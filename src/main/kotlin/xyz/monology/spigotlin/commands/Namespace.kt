@@ -46,7 +46,7 @@ class Namespace(
             if (args.size > 1) {
                 val filter = commands.filter { it.label == args[0] }
                 if (filter.size == 1) {
-                    val slicedArgs = args.slice(IntRange(0, 0))
+                    val slicedArgs = args.slice(1 until args.size)
                     return filter[0].tabComplete(sender, alias, slicedArgs.toTypedArray())
                 }
                 return emptyList()
