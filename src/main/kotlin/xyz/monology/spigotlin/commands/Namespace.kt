@@ -44,6 +44,11 @@ class Namespace(
                 }
             }
             if (args.size > 1) {
+                val filter = commands.filter { it.label == args[0] }
+                if (filter.size == 1) {
+                    val slicedArgs = args.slice(IntRange(0, 0))
+                    return filter[0].tabComplete(sender, alias, slicedArgs.toTypedArray())
+                }
                 return emptyList()
             }
             val filteredCommands = if (args[0].isBlank()) commands else commands.filter { it.label.startsWith(args[0], true) }
