@@ -15,14 +15,14 @@ class GUIDSL(val title: String, val rows: Byte) {
      * This sets a corresponding [itemStack] to an [index] location on the [gui].
      */
     operator fun set(index: Int, itemStack: ItemStack) {
-        gui.spigot.setItem(index, itemStack)
+        gui.spigot.setItem(index + 1, itemStack)
     }
 
     /**
      * This sets a corresponding [item] to this [index] location on the [gui].
      */
     operator fun set(index: Int, item: Pair<ItemStack, OnClickEvent.() -> Unit>) {
-        gui.spigot.setItem(index, item.first)
+        gui.spigot.setItem(index + 1, item.first)
         gui.onClick[index] = {
             if (index in gui.onClick) gui.onClick[index]
             item.second(this)
@@ -32,45 +32,25 @@ class GUIDSL(val title: String, val rows: Byte) {
     fun ItemStack.onClick(block: OnClickEvent.() -> Unit) = Pair(this, block)
 
     /**
-     * This sets a corresponding [item] to this [index] location on the [gui].
-     */
-    @JvmName("setAny")
-    operator fun set(index: Int, item: Pair<ItemStack, OnClickEvent.() -> Any>) {
-        gui.spigot.setItem(index, item.first)
-        gui.onClick[index] = {
-            if (index in gui.onClick) gui.onClick[index]
-            item.second(this)
-        }
-    }
-
-    /**
      * This adds [itemStack] to the next free slot in [gui].
      */
     fun add(itemStack: ItemStack) {
         gui.spigot.addItem(itemStack)
     }
 
-    /**
-     * This sets a corresponding [item] to this [row] and this [column].
-     */
-    operator fun set(row: Int, column: Int, item: Pair<ItemStack, OnClickEvent.() -> Unit>) {
-        val index = (row -1 ) * 9 + column - 1
-        set(index, item.first)
-        gui.onClick[index] = {
-            if (index in gui.onClick) gui.onClick[index]
-            item.second(this)
-        }
+    operator fun set(row: Int, column: Int, itemStack: ItemStack) {
+        val index = (row - 1) * 9 + column - 1
+        set(index, itemStack)
     }
 
     /**
      * This sets a corresponding [item] to this [row] and this [column].
      */
-    @JvmName("setAny")
-    operator fun set(row: Int, column: Int, item: Pair<ItemStack, OnClickEvent.() -> Any>) {
-        val index = (row -1 ) * 9 + column - 1
+    operator fun set(row: Int, column: Int, item: Pair<ItemStack, OnClickEvent.() -> Unit>) {
+        val index = (row - 1) * 9 + column - 1
         set(index, item.first)
         gui.onClick[index] = {
-            if (index in gui.onClick) gui.onClick[index]
+            if (index in gui.onClick) gui.onClick[index]?.invoke(this)
             item.second(this)
         }
     }
