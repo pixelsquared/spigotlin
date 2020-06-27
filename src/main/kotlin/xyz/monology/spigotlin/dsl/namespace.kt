@@ -16,8 +16,8 @@ class NamespaceDSL(val name: String) {
         execute = block
     }
 
-    fun fallbackCommand(label: String, description: String = "A command.", usage: String? = null, permission: String? = null, block: CommandContext<Arguments.None, CommandSender>.() -> Unit) =
-        FallbackCommand(Command(label, description, permission, usage ?: "/$label") { block() })
+    inline fun fallbackCommand(label: String, description: String = "A command.", usage: String? = null, permission: String? = null, noinline onTab: ((CommandSender, List<String>) -> List<String>)? = null, crossinline block: CommandContext<Arguments.None, CommandSender>.() -> Unit) =
+        FallbackCommand(Command(label, description, permission, usage ?: "/$label", onTab) { block() })
 
     operator fun FallbackCommand.unaryPlus() {
         commands.add(command.toKotlinCommand())

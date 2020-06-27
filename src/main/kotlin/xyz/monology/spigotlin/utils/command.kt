@@ -13,13 +13,13 @@ inline fun <reified T> args(args: Array<String>, index: Int, sender: CommandSend
 }
 
 fun Command<Arguments.None, CommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, _ ->
+    KotlinCommand(this, tabCompleter) { sender, _ ->
         this.execute(CommandContext(sender, Arguments.None))
     }
 
 @JvmName("toKotlinCommand1")
 inline fun <reified A> Command<Arguments.One<A>, CommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.isEmpty()) {
             CommandIntrinsics.invalidArgumentAmount(sender, 0, 1)
             return@KotlinCommand
@@ -36,7 +36,7 @@ inline fun <reified A> Command<Arguments.One<A>, CommandSender>.toKotlinCommand(
 
 @JvmName("toKotlinCommand2")
 inline fun <reified A, reified B> Command<Arguments.Two<A, B>, CommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 2) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 2)
             return@KotlinCommand
@@ -54,7 +54,7 @@ inline fun <reified A, reified B> Command<Arguments.Two<A, B>, CommandSender>.to
 
 @JvmName("toKotlinCommand3")
 inline fun <reified A, reified B, reified C> Command<Arguments.Three<A, B, C>, CommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 3) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 3)
             return@KotlinCommand
@@ -73,7 +73,7 @@ inline fun <reified A, reified B, reified C> Command<Arguments.Three<A, B, C>, C
 
 @JvmName("toKotlinCommand4")
 inline fun <reified A, reified B, reified C, reified D> Command<Arguments.Four<A, B, C, D>, CommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 4) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 3)
             return@KotlinCommand
@@ -93,7 +93,7 @@ inline fun <reified A, reified B, reified C, reified D> Command<Arguments.Four<A
 
 @JvmName("toKotlinCommand5")
 inline fun <reified A, reified B, reified C, reified D, reified E> Command<Arguments.Five<A, B, C, D, E>, CommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 5) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 3)
             return@KotlinCommand
@@ -114,7 +114,7 @@ inline fun <reified A, reified B, reified C, reified D, reified E> Command<Argum
 
 @JvmName("toKotlinCommand6")
 inline fun <reified A, reified B, reified C, reified D, reified E, reified F> Command<Arguments.Six<A, B, C, D, E, F>, CommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 5) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 3)
             return@KotlinCommand
@@ -136,7 +136,7 @@ inline fun <reified A, reified B, reified C, reified D, reified E, reified F> Co
 
 @JvmName("toKotlinCommand7")
 inline fun <reified A, reified B, reified C, reified D, reified E, reified F, reified G> Command<Arguments.Seven<A, B, C, D, E, F, G>, CommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 5) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 3)
             return@KotlinCommand
@@ -159,7 +159,7 @@ inline fun <reified A, reified B, reified C, reified D, reified E, reified F, re
 
 @JvmName("toKotlinCommand8")
 inline fun <reified A, reified B, reified C, reified D, reified E, reified F, reified G, reified H> Command<Arguments.Eight<A, B, C, D, E, F, G, H>, CommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 5) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 3)
             return@KotlinCommand
@@ -183,7 +183,7 @@ inline fun <reified A, reified B, reified C, reified D, reified E, reified F, re
 
 @JvmName("playerToKotlinCommand")
 fun Command<Arguments.None, Player>.toKotlinCommand() =
-    KotlinCommand(this) { sender, _ ->
+    KotlinCommand(this, tabCompleter) { sender, _ ->
         if (sender !is Player) {
             CommandIntrinsics.requiresPlayer(sender)
             return@KotlinCommand
@@ -194,7 +194,7 @@ fun Command<Arguments.None, Player>.toKotlinCommand() =
 
 @JvmName("playerToKotlinCommand1")
 inline fun <reified A> Command<Arguments.One<A>, Player>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.isEmpty()) {
             CommandIntrinsics.invalidArgumentAmount(sender, 0, 1)
             return@KotlinCommand
@@ -216,7 +216,7 @@ inline fun <reified A> Command<Arguments.One<A>, Player>.toKotlinCommand() =
 
 @JvmName("playerToKotlinCommand2")
 inline fun <reified A, reified B> Command<Arguments.Two<A, B>, Player>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 2) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 2)
             return@KotlinCommand
@@ -239,7 +239,7 @@ inline fun <reified A, reified B> Command<Arguments.Two<A, B>, Player>.toKotlinC
 
 @JvmName("playerToKotlinCommand3")
 inline fun <reified A, reified B, reified C> Command<Arguments.Three<A, B, C>, Player>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 3) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 3)
             return@KotlinCommand
@@ -263,7 +263,7 @@ inline fun <reified A, reified B, reified C> Command<Arguments.Three<A, B, C>, P
 
 @JvmName("playerToKotlinCommand4")
 inline fun <reified A, reified B, reified C, reified D> Command<Arguments.Four<A, B, C, D>, Player>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 4) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 3)
             return@KotlinCommand
@@ -288,7 +288,7 @@ inline fun <reified A, reified B, reified C, reified D> Command<Arguments.Four<A
 
 @JvmName("playerToKotlinCommand5")
 inline fun <reified A, reified B, reified C, reified D, reified E> Command<Arguments.Five<A, B, C, D, E>, Player>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 5) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 3)
             return@KotlinCommand
@@ -314,7 +314,7 @@ inline fun <reified A, reified B, reified C, reified D, reified E> Command<Argum
 
 @JvmName("playerToKotlinCommand6")
 inline fun <reified A, reified B, reified C, reified D, reified E, reified F> Command<Arguments.Six<A, B, C, D, E, F>, Player>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 5) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 3)
             return@KotlinCommand
@@ -341,7 +341,7 @@ inline fun <reified A, reified B, reified C, reified D, reified E, reified F> Co
 
 @JvmName("playerToKotlinCommand7")
 inline fun <reified A, reified B, reified C, reified D, reified E, reified F, reified G> Command<Arguments.Seven<A, B, C, D, E, F, G>, Player>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 5) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 3)
             return@KotlinCommand
@@ -369,7 +369,7 @@ inline fun <reified A, reified B, reified C, reified D, reified E, reified F, re
 
 @JvmName("playerToKotlinCommand8")
 inline fun <reified A, reified B, reified C, reified D, reified E, reified F, reified G, reified H> Command<Arguments.Eight<A, B, C, D, E, F, G, H>, Player>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 5) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 3)
             return@KotlinCommand
@@ -399,7 +399,7 @@ inline fun <reified A, reified B, reified C, reified D, reified E, reified F, re
 
 @JvmName("consoleToKotlinCommand")
 fun Command<Arguments.None, ConsoleCommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, _ ->
+    KotlinCommand(this, tabCompleter) { sender, _ ->
         if (sender !is ConsoleCommandSender) {
             CommandIntrinsics.requiresConsole(sender)
             return@KotlinCommand
@@ -410,7 +410,7 @@ fun Command<Arguments.None, ConsoleCommandSender>.toKotlinCommand() =
 
 @JvmName("consoleToKotlinCommand1")
 inline fun <reified A> Command<Arguments.One<A>, ConsoleCommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.isEmpty()) {
             CommandIntrinsics.invalidArgumentAmount(sender, 0, 1)
             return@KotlinCommand
@@ -432,7 +432,7 @@ inline fun <reified A> Command<Arguments.One<A>, ConsoleCommandSender>.toKotlinC
 
 @JvmName("consoleToKotlinCommand2")
 inline fun <reified A, reified B> Command<Arguments.Two<A, B>, ConsoleCommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 2) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 2)
             return@KotlinCommand
@@ -455,7 +455,7 @@ inline fun <reified A, reified B> Command<Arguments.Two<A, B>, ConsoleCommandSen
 
 @JvmName("consoleToKotlinCommand3")
 inline fun <reified A, reified B, reified C> Command<Arguments.Three<A, B, C>, ConsoleCommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 3) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 3)
             return@KotlinCommand
@@ -479,7 +479,7 @@ inline fun <reified A, reified B, reified C> Command<Arguments.Three<A, B, C>, C
 
 @JvmName("consoleToKotlinCommand4")
 inline fun <reified A, reified B, reified C, reified D> Command<Arguments.Four<A, B, C, D>, ConsoleCommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 4) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 3)
             return@KotlinCommand
@@ -504,7 +504,7 @@ inline fun <reified A, reified B, reified C, reified D> Command<Arguments.Four<A
 
 @JvmName("consoleToKotlinCommand5")
 inline fun <reified A, reified B, reified C, reified D, reified E> Command<Arguments.Five<A, B, C, D, E>, ConsoleCommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 5) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 3)
             return@KotlinCommand
@@ -530,7 +530,7 @@ inline fun <reified A, reified B, reified C, reified D, reified E> Command<Argum
 
 @JvmName("consoleToKotlinCommand6")
 inline fun <reified A, reified B, reified C, reified D, reified E, reified F> Command<Arguments.Six<A, B, C, D, E, F>, ConsoleCommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 5) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 3)
             return@KotlinCommand
@@ -557,7 +557,7 @@ inline fun <reified A, reified B, reified C, reified D, reified E, reified F> Co
 
 @JvmName("consoleToKotlinCommand7")
 inline fun <reified A, reified B, reified C, reified D, reified E, reified F, reified G> Command<Arguments.Seven<A, B, C, D, E, F, G>, ConsoleCommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 5) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 3)
             return@KotlinCommand
@@ -585,7 +585,7 @@ inline fun <reified A, reified B, reified C, reified D, reified E, reified F, re
 
 @JvmName("consoleToKotlinCommand8")
 inline fun <reified A, reified B, reified C, reified D, reified E, reified F, reified G, reified H> Command<Arguments.Eight<A, B, C, D, E, F, G, H>, ConsoleCommandSender>.toKotlinCommand() =
-    KotlinCommand(this) { sender, args ->
+    KotlinCommand(this, tabCompleter) { sender, args ->
         if (args.size > 5) {
             CommandIntrinsics.invalidArgumentAmount(sender, args.size, 3)
             return@KotlinCommand
