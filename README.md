@@ -3,6 +3,9 @@ The best library for Spigot plugins written in Kotlin.
 
 See the wiki for code examples!
 
+### Discord
+https://discord.gg/DtKpNtr
+
 ### Features
 Spigotlin has a lot of features:
 - Type-safe command library with/without namespaces! Features configurable (and automatic) argument-arity, type-verification and correct CommandSender checks.
