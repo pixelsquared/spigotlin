@@ -38,7 +38,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.7we:spigotlin:0.1.1-BETA")
+    implementation("com.github.7we:spigotlin:0.1.2-BETA")
 }
 ```
 
@@ -49,7 +49,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.7we:spigotlin:0.1.1-BETA'
+    implementation 'com.github.7we:spigotlin:0.1.2-BETA'
 }
 ```
 
@@ -65,7 +65,7 @@ Maven
     <dependency>
         <groupId>com.github.7we</groupId>
         <artifactId>spigotlin</artifactId>
-        <version>0.1.1-BETA</version>
+        <version>0.1.2-BETA</version>
     </dependency>
 </dependencies>
 ```
